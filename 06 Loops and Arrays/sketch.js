@@ -40,16 +40,21 @@ function drawArrays(){
     fill(0);
     circle(x[i], y[i], 4);
 
+    //draw line segment
+    line(x[i], y[i], x[i+1], y[i+1]);
+
   }
 }
 
 function updateArrays(){
   //push one new value to x/y arrays, delete first value
   //method one: Random
-  x.push(x[x.length-1] + random(-SPEED,SPEED));
-  y.push(y[y.length-1] + random(-SPEED,SPEED));
+  // x.push(x[x.length-1] + random(-SPEED,SPEED));
+  // y.push(y[y.length-1] + random(-SPEED,SPEED));
 
-
+  //method two: mouse cursor
+  x.push(mouseX + random(-3,3));
+  y.push(mouseY + random(-3,3));
   //remove first element from x/y arrays
   x.shift();
   y.shift();
