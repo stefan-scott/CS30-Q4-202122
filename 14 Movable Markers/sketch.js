@@ -4,6 +4,8 @@
 // for a map placement problem...
 
 let markers = [];
+let currentlyDragging = false; //global variable flag for
+//                            if we are moving something presently
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -11,22 +13,22 @@ function setup() {
 
 function draw() {
   background(220);
-  for(let m of markers){ //loops through all objects in markers
-    
+  for (let m of markers) { //loops through all objects in markers
+    m.move();
     m.display();
   }
 }
 
-function keyPressed(){
-  if(key === " "){
+function keyPressed() {
+  if (key === " ") {
     markers.push(new MovableMarker(mouseX, mouseY));
   }
 }
 
-class MovableMarker{
+class MovableMarker {
   //something like a pin that can be placed/moved on a map
 
-  constructor(x, y){
+  constructor(x, y) {
     this.x = x;
     this.y = y;
     this.offX = 0; this.offY = 0; //for when dragging not from center
@@ -38,20 +40,51 @@ class MovableMarker{
   }
 
   //class Methods()
-  move(){
+  move() {
+    if (this.mouseIsOver() && currentlyDragging === false) {
+      if(mouseIsPressed && mouseButton === LEFT){
+        this.beingDragged = true;  
+        this.offX = mouseX - this.x;
+        this.offY = mouseY - this.y;
+        currentlyDragging = true;
+      }
+    }
+
+    //check if the drag is over
+    if(!mouseIsPressed){
+      this.beingDragged = false;
+      currentlyDragging = false;
+    }
+
+    if(this.beingDragged){
+      this.x = mouseX - this.offX;
+      this.y = mouseY - this.offY;
+    }
 
   }
 
 
-  display(){
-    fill(this.baseColor);
+  display() {
+    if (this.mouseIsOver()) {
+      fill(this.hoverColor);
+    }
+    else {
+      fill(this.baseColor);
+    }
     circle(this.x, this.y, this.diameter);
   }
 
 
 
-  mouseIsOver(){
-
+  mouseIsOver() {
+    //return true if the mouse is hovering over this marker
+    let d = dist(mouseX, mouseY, this.x, this.y);
+    if (d <= this.radius) {
+      return true; //mouse IS hovering over this object
+    }
+    else {
+      return false;
+    }
   }
 
 
