@@ -3,6 +3,7 @@
 // May 26, 2022
 // for a map placement problem...
 
+let markers = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -10,8 +11,17 @@ function setup() {
 
 function draw() {
   background(220);
+  for(let m of markers){ //loops through all objects in markers
+    
+    m.display();
+  }
 }
 
+function keyPressed(){
+  if(key === " "){
+    markers.push(new MovableMarker(mouseX, mouseY));
+  }
+}
 
 class MovableMarker{
   //something like a pin that can be placed/moved on a map
