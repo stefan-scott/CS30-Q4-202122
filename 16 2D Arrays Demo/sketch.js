@@ -22,6 +22,22 @@ function setup() {
 function draw() {
   background(220);
   renderGrid();
+
+  // print(getCurrentX() + "\t" + getCurrentY());
+}
+
+function flip(){
+  
+}
+
+function getCurrentX(){
+  //determine which column mouse is currently in
+  return int(mouseX/rectWidth);
+}
+
+function getCurrentY(){
+  //determine which row mouse is currently in
+  return int(mouseY/rectHeight);
 }
 
 
