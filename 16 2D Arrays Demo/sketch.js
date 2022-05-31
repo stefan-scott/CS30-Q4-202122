@@ -11,7 +11,7 @@ let grid =
 
 const NUM_ROWS = 4;
 const NUM_COLS = 5;
-let rectWidth, rectHeight;
+let rectWidth, rectHeight, row, col;
 
 function setup() {
   rectWidth = 50;
@@ -20,14 +20,33 @@ function setup() {
 }
 
 function draw() {
+  row = getCurrentY();
+  col = getCurrentX();
   background(220);
   renderGrid();
 
   // print(getCurrentX() + "\t" + getCurrentY());
 }
 
-function flip(){
-  
+function mousePressed(){
+  // when the mouse is clicked, flip the value lined up with mouse position
+  // also flip 4 compass neighbours
+
+  // mousePosition
+  flip(col, row);
+
+  // flip the neighbours
+  if(col < NUM_COLS-1) flip(col + 1, row);  //flip RIGHT neighbour
+  if(col > 0) flip(col - 1, row);  //flip LEFT neighbour
+  if(row > 0) flip(col, row - 1);  //flip TOP neighbour
+  if(row < NUM_ROWS-1) flip(col, row + 1);  //flip BOTTOM neighbour
+}
+
+function flip(col, row){
+  //at given x,y flip the value in our 2D array:
+  //0 → 255    255 → 0
+  if(grid[row][col] === 0) grid[row][col] = 255;
+  else grid[row][col] = 0;
 }
 
 function getCurrentX(){
