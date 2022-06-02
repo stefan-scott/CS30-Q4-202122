@@ -60,22 +60,44 @@ function swap(x1, y1, x2, y2){
 function keyPressed(){
 
   if (keyCode === UP_ARROW){
-    swap(playerX, playerY, playerX, playerY-1);
-    playerY--;
+    if(playerY > 0){  //verify there is at least one tile above the player
+      //if there is something there, let's check what it is:
+      if(level[playerY-1][playerX]===0){ //grass tile above us
+        swap(playerX, playerY, playerX, playerY-1);
+        playerY--;
+      }
+
+
+
+      
+    }
   }
+
+
+
+
+
+
+
   if (keyCode === DOWN_ARROW){
-    swap(playerX, playerY, playerX, playerY +1);
-    playerY++;
+    if(playerY < 4){
+      swap(playerX, playerY, playerX, playerY +1);
+      playerY++;
+    }
   }
 
   if(keyCode === LEFT_ARROW){
-    swap(playerX, playerY, playerX-1, playerY);
-    playerX--;
+    if(playerX > 0){
+      swap(playerX, playerY, playerX-1, playerY);
+      playerX--;
+    }
   }
 
   if(keyCode === RIGHT_ARROW){
-    swap(playerX, playerY, playerX+1, playerY);
-    playerX++;
+    if(playerX < 4){
+      swap(playerX, playerY, playerX+1, playerY);
+      playerX++;
+    }
   }
 
 }
