@@ -9,14 +9,14 @@ const COLUMNS = 5;
 const ROWS = 5;
 const TILE_SIZE = 100;  
 let playerX = 3;   //setup player's initial location
-let playerY = 3;
+let playerY = 4;
 
 
 let level = [
 [0, 0, 1, 0, 0],
 [0, 1, 0, 1, 0],
 [0, 0, 1, 0, 0],
-[0, 0, 0, 0, 0],
+[0, 1, 0, 1, 0],
 [0, 0, 0, 0, 0] ];
 
 let tiles = [];  //0 → blank
@@ -66,10 +66,17 @@ function keyPressed(){
         swap(playerX, playerY, playerX, playerY-1);
         playerY--;
       }
-
-
-
-      
+      else if(level[playerY-1][playerX]===1){ //chicken tile above us
+        if(playerY > 1 && level[playerY-2][playerX] === 0){
+          // indicates enough room to not go off the array
+          // and also that beyond the pushable object there is grass tile
+          swap(playerX, playerY-1, playerX, playerY-2);
+          swap(playerX, playerY, playerX, playerY-1);
+          playerY--;
+        }
+      }
+      //repeat this type of logic for other directions if you were to 
+      //carry on with this project further  ← → ↓
     }
   }
 
